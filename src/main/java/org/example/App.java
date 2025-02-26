@@ -121,6 +121,7 @@ public class App {
         if (updateStore)
             updateStoreLocation();
         // Check out the product
+        Thread.sleep(4000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(checkoutbutton))).click();
     }
 
@@ -140,9 +141,12 @@ public class App {
 
         //System.out.println("Update the store location for the customer");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(storelocationupdated))).click();
+        //wait.until(ExpectedConditions.elementToBeClickable(By.xpath(storelocationupdated))).sendKeys(Keys.ENTER);
         //System.out.println("Clicked on first address");
+        Thread.sleep(3000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(storeupdatebutton))).click();
         //System.out.println("Clicked on Confirm Store address");
+        Thread.sleep(3000);
     }
 
     private static void clearField(WebElement we) {
@@ -153,7 +157,6 @@ public class App {
             we.sendKeys(Keys.BACK_SPACE);
             len--;
         }
-        ;
     }
 
     @Test
