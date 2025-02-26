@@ -7,7 +7,7 @@ public class Global_Variables {
 
     public static final String BASE_URL = "https://www.apple.com/store";
     public static final String TESTDATA_LOCATION = "/src/main/java/Utils/testdata.json";
-
+    //Controls the store location update.
     public static final boolean UPDATE_STORE_LOCATION = true;
 
 }

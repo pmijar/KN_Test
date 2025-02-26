@@ -1,4 +1,5 @@
 package org.example;
+
 import Utils.DataReader;
 import Utils.Global_Variables;
 import org.openqa.selenium.*;
@@ -18,39 +19,22 @@ import java.util.List;
 
 /**
  * Hello world!
- *
  */
-public class App 
-{
+public class App {
 
-     static private String productselected = "//div[@role='list' and @aria-label='Product']//a[contains(text(),'iPhone')]";
-
+    static private String productselected = "//div[@role='list' and @aria-label='Product']//a[contains(text(),'iPhone')]";
     //static private String modelselected = "//div[@role='list' and @aria-label='All models.']//h3[contains(.,'16') and contains(., 'Plus')]";
     static private String modelselected = "//div[@role='list' and @aria-label='All models.']//h3[contains(.,'^^^VER^^^') and contains(., '^^^MODEL^^^')]";
-
     static private String buyOption = "//a[@data-autom='DigitalMat-buynow-button-1-0']"; // Buy button click
-
-
     static private String buyModelSize = "//input[@name='dimensionScreensize' and @value='^^^SCREENSIZE^^^']/parent::*";
     static private String buyModelColor = "//input[@name='dimensionColor' and @value='^^^COLOR^^^']/parent::*";
     static private String buyModelCapacity = "//input[@name='dimensionCapacity' and @value='^^^CAPACITY^^^']/parent::*";
-
     static private String tradein = "//input[@id='noTradeIn']/parent::*";
-    static private String financeoptions =  "//input[@name='purchase_option_group' and @value='fullprice']/parent::*";
-
-    //static private String carrierselection = "//input[@name='carrierModel' and @value='TMOBILE_IPHONE16']/parent::*";
-
-    static private String carrierselection =
-            "//input[@name='carrierModel' and @value='UNLOCKED/US']/parent::*";
-
-
-    //static private String coverageoptions = "//input[@id='applecareplus_59_applecare_59_theft_loss_open']/parent::*";
-    static private String coverageoptions = "(//input[starts-with(@id,'applecareplus') and contains(@id, 'noapplecare')]/parent::*)[1]";
-
+    static private String financeoptions = "//input[@name='purchase_option_group' and @value='fullprice']/parent::*";//static private String carrierselection = "//input[@name='carrierModel' and @value='TMOBILE_IPHONE16']/parent::*";
+    static private String carrierselection = "//input[@name='carrierModel' and @value='UNLOCKED/US']/parent::*";
+     static private String coverageoptions = "(//input[starts-with(@id,'applecareplus') and contains(@id, 'noapplecare')]/parent::*)[1]";
     static private String continuebutton = "(//button[@type='submit'])[2]";
-
     static private String reviewbutton = "(//button[@type='submit'])[2]";
-
     //Store Details
     static private String storelocation = "//button[@data-autom='bag-seemorestores-link']";
     static private String storeaddressentry = "//input[@data-autom='bag-storelocator-input']";
@@ -58,16 +42,13 @@ public class App
     static private String address = "Somerset, NJ";
     static private String storelocationupdated =
             "((//ul[@class='rt-storelocator-store-group form-selector-group'])[1]/li/*[contains(., 'Available')])[1]";
-
     static private String storeupdatebutton = "//button[@data-autom='bag-storelocator-confirmstore']";
+    static private String checkoutbutton = "//button[@id='shoppingCart.actions.checkoutOtherPayments']";
 
-    static private String checkoutbutton="//button[@id='shoppingCart.actions.checkoutOtherPayments']";
-
-
-    static private WebDriver driver= null;
+    static private WebDriver driver = null;
     static private WebDriverWait wait;
 
-   @BeforeTest
+    @BeforeTest
     public void setup() throws InterruptedException, IOException {
         driver = new ChromeDriver();
         driver.get(Global_Variables.BASE_URL);
@@ -92,12 +73,12 @@ public class App
     }
 
     public static void selectProduct() throws InterruptedException {
-       // Select iphone product from the store
+        // Select iphone product from the store
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(productselected))).click();
     }
 
     public static void selectModelBuy() throws InterruptedException {
-       //select the iphone version (15/16) and model name (Pro, Plus)
+        //select the iphone version (15/16) and model name (Pro, Plus)
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(modelselected))).click();
         // Click on buy button
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(buyOption))).click();
@@ -118,13 +99,15 @@ public class App
 
         //Finance option Selection
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(financeoptions))).click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
 
         //Carrier Selection
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(carrierselection))).click();
+        Thread.sleep(3000);
 
         //coverage Selection
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(coverageoptions))).click();
+        Thread.sleep(3000);
 
         //Submit the selections
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(continuebutton))).click();
@@ -132,10 +115,10 @@ public class App
     }
 
     public static void reviewItems() throws InterruptedException {
-       //Click on Review Button
+        //Click on Review Button
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(reviewbutton))).click();
         // Updating to store address based on updateStore flag
-        if(updateStore)
+        if (updateStore)
             updateStoreLocation();
         // Check out the product
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(checkoutbutton))).click();
@@ -162,14 +145,15 @@ public class App
         //System.out.println("Clicked on Confirm Store address");
     }
 
-    private static void clearField(WebElement we){
+    private static void clearField(WebElement we) {
         int len = we.getAttribute("value").length();
-        System.out.println("text is : "+ we.getAttribute("value") );
-        System.out.println("length is : "+ len );
-        while(len>0){
+        System.out.println("text is : " + we.getAttribute("value"));
+        System.out.println("length is : " + len);
+        while (len > 0) {
             we.sendKeys(Keys.BACK_SPACE);
             len--;
-        };
+        }
+        ;
     }
 
     @Test
@@ -182,7 +166,7 @@ public class App
     }
 
     @AfterTest
-    public void teardown(){
+    public void teardown() {
         driver.quit();
     }
 }
